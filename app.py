@@ -61,6 +61,31 @@ def edit_customer(id):
         db.session.commit()
         return redirect('/customers')
     return render_template('edit.html', customer=customer)
+    
+@app.route('/add_or_update_customer', methods=['POST'])
+def add_or_update_customer():
+    name = request.form['name']
+    email = request.form['email']
+    message = request.form['message']
+    
+    existing_customer = Customer.query.filter_by(email=email).first()
+    if existing_customer:
+        # 更新已有記錄
+        existing_customer.name = name
+        existing_customer.message = message
+        message = "Customer record updated successfully!"
+    else:
+        # 添加新記錄
+        new_customer = Customer(name=name, email=email, message=message)
+        db.session.add(new_customer)
+        message = "New customer added successfully!"
+    
+    try:
+        db.session.commit()
+        return message
+    except Exception as e:
+        db.session.rollback()
+        return f"Error: {e}", 500
 
 # 刪除客戶資料
 @app.route('/delete/<int:id>', methods=['POST'])
