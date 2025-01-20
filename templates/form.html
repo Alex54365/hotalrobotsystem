@@ -11,12 +11,20 @@
             top: 20px;
             right: 20px;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container my-5">
-        <a href="/" class="btn btn-primary top-right-button">返回主頁</a>
-        <h2>新增客戶資料</h2>
+        <div class="header">
+            <h2>新增客戶資料</h2>
+            <a href="/" class="btn btn-primary top-right-button">返回主頁</a>
+        </div>
         <form action="/form" method="POST">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
