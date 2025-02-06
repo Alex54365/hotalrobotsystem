@@ -71,18 +71,14 @@ def add_or_update_customer():
     email = request.form['email']
     room = request.form['room']
     message = request.form['message']
-    customer_id = request.form.get('id')
-    if customer_id:
-        existing_customer = Customer.query.get(customer_id)
-        if existing_customer:
+   existing_customer = Customer.query.filter_by(email=email).first()
+    if existing_customer:
         # 更新已有記錄
         existing_customer.name = name
-        existing_customer.email = email
         existing_customer.room = room
         existing_customer.message = message
         message = "客戶資料更新成功！"
-        else:
-            return "客戶不存在", 404#返回
+        
     else:
         # 添加新記錄
         new_customer = Customer(name=name, email=email, room=room, message=message)
