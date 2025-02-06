@@ -71,8 +71,10 @@ def add_or_update_customer():
     email = request.form['email']
     room = request.form['room']
     message = request.form['message']
-    
-    if existing_customer:
+    customer_id = request.form.get('id')
+    if customer_id:
+        existing_customer = Customer.query.get(customer_id)
+        if existing_customer:
         # 更新已有記錄
         existing_customer.name = name
         existing_customer.email = email
