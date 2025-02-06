@@ -11,7 +11,7 @@
         <h2>Edit Customer</h2>
         <form action="/edit/{{ customer.id }}" method="POST">
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label">姓名</label>
                 <input type="text" id="name" name="name" class="form-control" value="{{ customer.name }}" required>
             </div>
             <div class="mb-3">
@@ -19,11 +19,15 @@
                 <input type="email" id="email" name="email" class="form-control" value="{{ customer.email }}" required>
             </div>
             <div class="mb-3">
-                <label for="message" class="form-label">Message</label>
+                <label for="room" class="form-label">房號</label>
+                <input type="text" id="room" name="room" class="form-control" value="{{ customer.room }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">訊息</label>
                 <textarea id="message" name="message" class="form-control" rows="4" required>{{ customer.message }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <a href="/customers" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">保存更改</button>
+            <a href="/customers" class="btn btn-secondary">取消</a>
         </form>
     </div>
 </body>
