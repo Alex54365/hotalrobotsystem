@@ -81,6 +81,8 @@ def add_or_update_customer():
         existing_customer.room = room
         existing_customer.message = message
         message = "客戶資料更新成功！"
+        else:
+            return "客戶不存在", 404#返回
     else:
         # 添加新記錄
         new_customer = Customer(name=name, email=email, room=room, message=message)
