@@ -81,7 +81,7 @@ def add_or_update_customer():
         message = "客戶資料更新成功！"
     else:
         # 添加新記錄
-        new_customer = Customer(name=name, email=email, message=message)
+        new_customer = Customer(name=name, email=email, room=room, message=message)
         db.session.add(new_customer)
         message = "新客戶添加成功！"
     
