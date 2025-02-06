@@ -48,7 +48,7 @@ def form():
         db.session.add(new_customer)
         db.session.commit()
 
-        return redirect(url_for('customers'))
+        return redirect(url_for('about',email=email))
     return render_template('form.html')
 
 # 編輯客戶資料
