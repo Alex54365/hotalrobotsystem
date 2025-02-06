@@ -101,7 +101,15 @@ def delete_customer(id):
     db.session.commit()
     return redirect('/customers')
 
-
+@app.route('/about')
+def about():
+    email = request.args.get('email')
+    if email:
+        customer = Customer.query.filter_by(email=email).first()
+        if customer:
+            return render_template('about.html', customer=customer)
+    return redirect(url_for('home'))
+    
 @app.route('/export')
 def export():
     customers = Customer.query.all()
