@@ -16,6 +16,7 @@ class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
+    room = db.Column(db.String(100), nullable=False)
     message = db.Column(db.Text, nullable=False)
 
 # 初始化數據庫
@@ -39,10 +40,11 @@ def form():
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
+        room = request.form.get('room')
         message = request.form.get('message')
 
         # 保存到數據庫
-        new_customer = Customer(name=name, email=email, message=message)
+        new_customer = Customer(name=name, email=email, room=room, message=message)
         db.session.add(new_customer)
         db.session.commit()
 
@@ -57,6 +59,7 @@ def edit_customer(id):
         # 更新數據
         customer.name = request.form['name']
         customer.email = request.form['email']
+        customer.room = request.form['room']
         customer.message = request.form['message']
         db.session.commit()
         return redirect('/customers')
@@ -66,19 +69,21 @@ def edit_customer(id):
 def add_or_update_customer():
     name = request.form['name']
     email = request.form['email']
+    room = request.form['room']
     message = request.form['message']
     
     existing_customer = Customer.query.filter_by(email=email).first()
     if existing_customer:
         # 更新已有記錄
         existing_customer.name = name
+        existing_customer.room = room
         existing_customer.message = message
-        message = "Customer record updated successfully!"
+        message = "客戶資料更新成功！"
     else:
         # 添加新記錄
         new_customer = Customer(name=name, email=email, message=message)
         db.session.add(new_customer)
-        message = "New customer added successfully!"
+        message = "新客戶添加成功！"
     
     try:
         db.session.commit()
@@ -102,9 +107,9 @@ def export():
 
     # 建立 CSV 文件
     output = []
-    output.append(['ID', 'Name', 'Email', 'Message'])
+    output.append(['ID', 'Name', 'Email', 'Room', 'Message'])
     for customer in customers:
-        output.append([customer.id, customer.name, customer.email, customer.message])
+        output.append([customer.id, customer.name, customer.email, customer.room, customer.message])
 
     # 將資料轉換為 CSV
     si = "\n".join([",".join(map(str, row)) for row in output])
