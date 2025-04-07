@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import threading
+import os
 
 # MQTT 設定
 MQTT_BROKER = os.getenv('MQTT_BROKER', '172.20.10.10')  
