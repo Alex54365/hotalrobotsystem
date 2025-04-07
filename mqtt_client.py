@@ -2,10 +2,10 @@ import paho.mqtt.client as mqtt
 import threading
 
 # MQTT 設定
-MQTT_BROKER = "172.20.10.10"
-MQTT_PORT = 1883
-MQTT_TOPIC = "esp32/control"
-MQTT_KEEPALIVE = 60
+MQTT_BROKER = os.getenv('MQTT_BROKER', '172.20.10.10')  
+MQTT_PORT = int(os.getenv('MQTT_PORT', 1883))
+MQTT_TOPIC = os.getenv('MQTT_TOPIC', 'esp32/control')
+MQTT_KEEPALIVE = int(os.getenv('MQTT_KEEPALIVE', 60))
 
 # 初始化 MQTT 客戶端
 mqtt_client = mqtt.Client()
