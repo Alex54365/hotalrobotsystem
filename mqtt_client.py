@@ -3,7 +3,7 @@ import threading
 import os
 
 # MQTT 設定
-MQTT_BROKER = os.getenv('MQTT_BROKER', '172.20.10.10')  
+MQTT_BROKER = os.getenv('MQTT_BROKER', 'broker.cloudmqtt.com')  
 MQTT_PORT = int(os.getenv('MQTT_PORT', 1883))
 MQTT_TOPIC = os.getenv('MQTT_TOPIC', 'esp32/control')
 MQTT_KEEPALIVE = int(os.getenv('MQTT_KEEPALIVE', 60))
