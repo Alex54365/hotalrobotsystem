@@ -2,6 +2,11 @@ import os
 import paho.mqtt.client as mqtt
 import threading
 
+# MQTT 設定
+MQTT_BROKER = "192.168.11.6"
+MQTT_PORT = 8883
+MQTT_TOPIC = "esp32/control"
+MQTT_KEEPALIVE = 60
 # --- 定義 callback ---
 def on_log(client, userdata, level, buf):
     print("MQTT LOG:", buf)
@@ -43,7 +48,7 @@ def start_mqtt():
 # 發送訊息給 ESP32
 def publish_message(message):
     try:
-        mqtt_client.publish(esp32/control, message)
+        mqtt_client.publish(MQTT_TOPIC, message)
         print(f" 已發送 MQTT 訊息: {message}")
     except Exception as e:
         print(f" 發送 MQTT 訊息失敗: {e}")
