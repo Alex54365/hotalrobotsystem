@@ -40,8 +40,7 @@ mqtt_client.on_message = on_message
 def start_mqtt():
     try:
         mqtt_client.connect(MQTT_BROKER, MQTT_PORT, MQTT_KEEPALIVE)
-        thread = threading.Thread(target=mqtt_client.loop_forever, daemon=True)
-        thread.start()
+        mqtt_client.loop_start()
         print(" MQTT 客戶端正在運行...")
     except Exception as e:
         print(f" 無法連接到 MQTT 伺服器: {e}")
