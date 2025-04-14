@@ -120,7 +120,7 @@ def send_order(room):
     room = room.upper()
     if room in ['A', 'B', 'C', 'D']:
         message = f"control:{room}"
-        mqtt_client.publish(esp32/control, message)
+        mqtt_client.publish(MQTT_TOPIC, message)
         print(f" 已傳送 MQTT 訂單：{message}")
         return render_template("send.html", room=room)
     else:
