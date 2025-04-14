@@ -23,6 +23,11 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print(f" 收到來自 {msg.topic} 的訊息: {msg.payload.decode()}")
 
+def on_log(client, userdata, level, buf):
+    print("MQTT LOG:", buf)
+
+mqtt_client.on_log = on_log
+
 # 如果你用的是自簽憑證，並且主機名不是正式域名，可加這行來避免驗證失敗
 CA_CERT_PATH = "mqtt-certs/certs/ca.crt"
 mqtt_client.tls_set(ca_certs=CA_CERT_PATH)
