@@ -1,53 +1,53 @@
+import os
 import paho.mqtt.client as mqtt
 import threading
 
-# MQTT 設定
-MQTT_BROKER = "192.168.11.6"
-MQTT_PORT = 8883
-MQTT_TOPIC = "esp32/control"
-MQTT_KEEPALIVE = 60
-
-# 憑證檔案路徑（請修改成你自己的）
-CA_CERT_PATH = "/path/to/ca.crt"  # ← 改成你的憑證路徑
-
-# 初始化 MQTT 客戶端
-mqtt_client = mqtt.Client()
+# --- 定義 callback ---
+def on_log(client, userdata, level, buf):
+    print("MQTT LOG:", buf)
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        print(" MQTT 連線成功！")
-        client.subscribe(MQTT_TOPIC)
+        print("MQTT 連線成功！")
+        client.subscribe("esp32/control")
     else:
-        print(f" MQTT 連線失敗，錯誤碼：{rc}")
+        print(f"MQTT 連線失敗，錯誤碼：{rc}")
 
 def on_message(client, userdata, msg):
-    print(f" 收到來自 {msg.topic} 的訊息: {msg.payload.decode()}")
+    print(f"收到來自 {msg.topic} 的訊息: {msg.payload.decode()}")
 
-# 如果你用的是自簽憑證，並且主機名不是正式域名，可加這行來避免驗證失敗
-CA_CERT_PATH = "mqtt-certs/certs/ca.crt"
-mqtt_client.tls_set(ca_certs=CA_CERT_PATH)
+# --- 動態取得憑證路徑 ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CA_CERT_PATH = os.path.join(BASE_DIR, "mqtt-certs", "certs", "ca.crt")
+print("使用的 ca.crt 路徑：", CA_CERT_PATH)
 
-# 設定回呼函式
+# --- 建立 MQTT client 並設定 TLS ---
+mqtt_client = mqtt.Client()
+mqtt_client.on_log = on_log
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message
 
-# 啟動 MQTT
+# 如果是自簽憑證，測試時可考慮略過驗證主機名：
+mqtt_client.tls_set(ca_certs=CA_CERT_PATH)
+mqtt_client.tls_insecure_set(True)
+
 def start_mqtt():
     try:
-        mqtt_client.connect(MQTT_BROKER, MQTT_PORT, MQTT_KEEPALIVE)
+        mqtt_client.connect("192.168.11.6", 8883, 60)
         thread = threading.Thread(target=mqtt_client.loop_forever, daemon=True)
         thread.start()
-        print(" MQTT 客戶端正在運行...")
+        print("MQTT 客戶端正在運行...")
     except Exception as e:
-        print(f" 無法連接到 MQTT 伺服器: {e}")
+        print(f"無法連接到 MQTT 伺服器: {e}")
 
 # 發送訊息給 ESP32
 def publish_message(message):
     try:
-        mqtt_client.publish(MQTT_TOPIC, message)
+        mqtt_client.publish(esp32/control, message)
         print(f" 已發送 MQTT 訊息: {message}")
     except Exception as e:
         print(f" 發送 MQTT 訊息失敗: {e}")
 
 if __name__ == "__main__":
     start_mqtt()
+
