@@ -4,7 +4,7 @@ import os
 
 # MQTT 設定
 MQTT_BROKER = os.getenv('MQTT_BROKER', 'localhost')  
-MQTT_PORT = int(os.getenv('MQTT_PORT', 1883))
+MQTT_PORT = int(os.getenv('MQTT_PORT', 8883))
 MQTT_TOPIC = os.getenv('MQTT_TOPIC', 'esp32/control')
 MQTT_KEEPALIVE = int(os.getenv('MQTT_KEEPALIVE', 60))
 
