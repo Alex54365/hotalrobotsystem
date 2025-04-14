@@ -6,8 +6,6 @@ MQTT_PORT = 8883
 MQTT_TOPIC = "esp32/control"
 MQTT_KEEPALIVE = 60
 
-# 憑證檔案路徑（請修改成你自己的）
-CA_CERT_PATH = "/path/to/ca.crt"  # ← 改成你的憑證路徑
 
 # 初始化 MQTT 客戶端
 mqtt_client = mqtt.Client()
