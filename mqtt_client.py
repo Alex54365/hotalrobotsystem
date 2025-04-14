@@ -23,7 +23,7 @@ def on_message(client, userdata, msg):
 
 # --- 動態取得憑證路徑 ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CA_CERT_PATH = os.path.join(BASE_DIR, "mqtt-certs", "certs", "ca.crt")
+CA_CERT_PATH = os.path.join("mqtt-certs", "certs", "ca.crt")
 print("使用的 ca.crt 路徑：", CA_CERT_PATH)
 
 # --- 建立 MQTT client 並設定 TLS ---
