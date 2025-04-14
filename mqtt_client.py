@@ -24,7 +24,7 @@ def on_message(client, userdata, msg):
     print(f" 收到來自 {msg.topic} 的訊息: {msg.payload.decode()}")
 
 # 如果你用的是自簽憑證，並且主機名不是正式域名，可加這行來避免驗證失敗
-CA_CERT_PATH = "certs/ca.crt"
+CA_CERT_PATH = "mqtt-certs/certs/ca.crt"
 mqtt_client.tls_set(ca_certs=CA_CERT_PATH)
 
 # 設定回呼函式
