@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 
 # MQTT 設定
 MQTT_BROKER = "192.168.11.6"
-MQTT_PORT = 8883
+MQTT_PORT = 1883
 MQTT_TOPIC = "esp32/control"
 MQTT_KEEPALIVE = 60
 
@@ -20,14 +20,6 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print(f" 收到來自 {msg.topic} 的訊息: {msg.payload.decode()}")
 
-def on_log(client, userdata, level, buf):
-    print("MQTT LOG:", buf)
-
-mqtt_client.on_log = on_log
-
-# 如果你用的是自簽憑證，並且主機名不是正式域名，可加這行來避免驗證失敗
-CA_CERT_PATH = "mqtt-certs/certs/ca.crt"
-mqtt_client.tls_set(ca_certs=CA_CERT_PATH)
 
 # 設定回呼函式
 mqtt_client.on_connect = on_connect
