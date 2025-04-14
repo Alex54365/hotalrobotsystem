@@ -1,5 +1,4 @@
 import paho.mqtt.client as mqtt
-import threading
 
 # MQTT 設定
 MQTT_BROKER = "192.168.11.6"
