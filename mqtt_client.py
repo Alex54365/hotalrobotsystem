@@ -3,7 +3,7 @@ import threading
 import ssl
 
 # MQTT 設定
-MQTT_BROKER = "192.168.11.6"
+MQTT_BROKER = "192.168.45.89"
 MQTT_PORT = 8883
 MQTT_TOPIC = "esp32/control"
 MQTT_KEEPALIVE = 60
