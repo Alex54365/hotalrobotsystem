@@ -9,6 +9,10 @@ MQTT_PORT = 8883
 MQTT_TOPIC = "esp32/control"
 MQTT_KEEPALIVE = 60
 
+if MQTT_BROKER is None:
+    raise ValueError("The MQTT_BROKER environment variable is not set!")
+else:
+    print(f"Connecting to MQTT broker at: {MQTT_BROKER}")
 # 初始化 MQTT 客戶端
 mqtt_client = mqtt.Client()
 
