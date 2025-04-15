@@ -1,9 +1,10 @@
 import paho.mqtt.client as mqtt
 import threading
 import ssl
+import os
 
 # MQTT 設定
-MQTT_BROKER = "125.227.109.119"
+MQTT_BROKER = os.getenv("MQTT_BROKER")
 MQTT_PORT = 8883
 MQTT_TOPIC = "esp32/control"
 MQTT_KEEPALIVE = 60
